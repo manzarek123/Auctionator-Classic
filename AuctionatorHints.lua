@@ -569,10 +569,12 @@ hooksecurefunc (GameTooltip, "SetCraftItem",
 
 hooksecurefunc (GameTooltip, "SetAction",
   function (tip, slot)
-    if GetActionInfo(slot) == "item" then
-      local link = select(2, tip:GetItem());
-      local num = GetActionCount(slot);
-      Atr_ShowTipWithPricing (tip, link, num);
+    if AUCTIONATOR_SHOW_ACTIONS_TIPS == 1 then
+      if GetActionInfo(slot) == "item" then
+        local link = select(2, tip:GetItem());
+        local num = GetActionCount(slot);
+        Atr_ShowTipWithPricing (tip, link, num);
+      end
     end
   end
 );
@@ -627,21 +629,16 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
 
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function (tip, index, attachIndex)
-    if AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 then
-      local attachmentIndex = attachIndex or 1
-      local _, _, _, num = GetInboxItem(index, attachmentIndex);
-
-      Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
-    end
+    local attachmentIndex = attachIndex or 1
+    local _, _, _, num = GetInboxItem(index, attachmentIndex);
+    Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
   end
 );
 
 hooksecurefunc ( "InboxFrameItem_OnEnter",
   function ( self )
     local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
-    local tooltipEnabled = AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 and  (
-      AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
-    )
+    local tooltipEnabled = (AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1)
 
     if tooltipEnabled and itemCount and itemCount > 1 then
       for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do

@@ -367,7 +367,7 @@
         </Scripts>
       </Frame>
 
-      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsMailboxOpt">
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsActionBarsOpt">
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
@@ -376,7 +376,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>ATR_tipsMailboxOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in mailbox tooltips"));  </OnLoad>
+          <OnLoad>ATR_tipsActionBarsOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in action bars tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
 
