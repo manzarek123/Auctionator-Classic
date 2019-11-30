@@ -59,6 +59,8 @@ AUCTIONATOR_AUCTIONS_SCANNED = "Auctions scanned:"
 AUCTIONATOR_ITEMS_ADDED = "Items added:"
 AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
+AUCTIONATOR_AVG_DAYS_TEXT = "Show the average of the last:"
+AUCTIONATOR_SELL_AH_EXACT_MATCH = "Exact match"
 --- End Globals
 AtrL["AH"] = ""
 AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
@@ -356,5 +358,7 @@ AtrL["You may have no more than\n\n%d items on a shopping list."] = ""
 AtrL["your auction on"] = ""
 AtrL["your most recent posting"] = ""
 AtrL["yours"] = ""
+AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Show average of auction house prices history in tooltips"] = ""
 --End Old Vars
 end

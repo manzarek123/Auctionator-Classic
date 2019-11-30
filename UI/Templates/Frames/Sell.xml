@@ -147,7 +147,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormalSmall" text="AH_EXACT_MATCH">
+            <FontString inherits="GameFontNormalSmall" text="AUCTIONATOR_SELL_AH_EXACT_MATCH">
               <Anchors>
                 <Anchor point="LEFT" relativePoint="RIGHT">
                   <Offset><AbsDimension x="2" y="1"/></Offset>

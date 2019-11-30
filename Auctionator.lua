@@ -23,14 +23,17 @@ AUCTIONATOR_SHOW_TIPS   = 1;
 AUCTIONATOR_DEF_DURATION  = "N";    -- none
 AUCTIONATOR_V_TIPS      = 1;
 AUCTIONATOR_A_TIPS      = 1;
+AUCTIONATOR_AVG_TIPS      = 1;
+AUCTIONATOR_AVG_TIPS_DAYS = 14; -- must be less than AUCTIONATOR_DB_MAXHIST_DAYS
 AUCTIONATOR_D_TIPS      = 1;
 AUCTIONATOR_SHIFT_TIPS    = 1;
 AUCTIONATOR_DE_DETAILS_TIPS = 4;    -- off by default
 AUCTIONATOR_DEFTAB      = 1;
 
 AUCTIONATOR_DB_MAXITEM_AGE  = 180;
-AUCTIONATOR_DB_MAXHIST_AGE  = 21;   -- obsolete - just needed for migration
-AUCTIONATOR_DB_MAXHIST_DAYS = 5;
+AUCTIONATOR_DB_MAXHIST_AGE  = 28;   -- obsolete - just needed for migration
+AUCTIONATOR_DB_MAXHIST_DAYS = 28;
+
 
 AUCTIONATOR_OPEN_FIRST    = 0;  -- obsolete - just needed for migration
 AUCTIONATOR_OPEN_BUY    = 0;  -- obsolete - just needed for migration

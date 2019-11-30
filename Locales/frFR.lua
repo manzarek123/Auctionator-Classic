@@ -58,6 +58,8 @@ AUCTIONATOR_AUCTIONS_SCANNED = "Auctions scanned:"
 AUCTIONATOR_ITEMS_ADDED = "Items added:"
 AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
+AUCTIONATOR_AVG_DAYS_TEXT = "Show the average of the last:"
+AUCTIONATOR_SELL_AH_EXACT_MATCH = "Corres. Exacte"
 --- End Globals
 AtrL["AH"] = ""
 AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
@@ -352,6 +354,7 @@ AtrL["Vendor"] = "Vendeur"
 AtrL["your auction on"] = "votre enchère sur"
 --AtrL["your most recent posting"] = ""
 AtrL["yours"] = "les votres"
-
+AtrL["Auction avg (%s record(s))"] = "Enchères moy. (%s donnée(s))"
+AtrL["Show average of auction house prices history in tooltips"] = ""
 
 end

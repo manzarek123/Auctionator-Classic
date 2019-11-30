@@ -60,6 +60,8 @@ AUCTIONATOR_AUCTIONS_SCANNED = "Auctions scanned:"
 AUCTIONATOR_ITEMS_ADDED = "Items added:"
 AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
+AUCTIONATOR_AVG_DAYS_TEXT = "Show the average of the last:"
+AUCTIONATOR_SELL_AH_EXACT_MATCH = "Exact match"
 --- End Globals
 AtrL["AH"] = ""
 AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
@@ -356,8 +358,6 @@ AtrL["your auction on"] = "ваш аукцион"
 AtrL["your most recent posting"] = "последняя запись"
 AtrL["yours"] = "ваши"
 
-AtrL["Advanced"] = "Расширенно"   -- not working
-AtrL["Exact Match"] = "Точный поиск"  -- not working
 AtrL["Add Item"] = "Добавить"
 AtrL["Remove Item"] = "Убрать"
 AtrL["Search for All Items"] = "Искать все предметы"
@@ -391,5 +391,7 @@ AtrL["Configure how you typically like to sell the items listed below."] = "Ту
 AtrL["Show auction house prices in tooltips"] = "Отображать в подсказках цену аукциона"
 AtrL["Show disenchant prices in tooltips"] = "Отображать в подсказках стоимость распыления"
 AtrL["Show vendor prices in tooltips"] = "Отображать в подсказках цену у торговца"
+AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Show average of auction house prices history in tooltips"] = ""
 
 end

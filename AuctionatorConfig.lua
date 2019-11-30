@@ -170,8 +170,13 @@ function Atr_SetupTooltipsOptionsFrame ()
 
   ATR_tipsVendorOpt_CB:SetChecked(zc.NumToBool(AUCTIONATOR_V_TIPS));
   ATR_tipsAuctionOpt_CB:SetChecked(zc.NumToBool(AUCTIONATOR_A_TIPS));
+  
+  ATR_tipsAuctionAVGOpt_CB:SetChecked(zc.NumToBool(AUCTIONATOR_AVG_TIPS));
+  Atr_ScanOpts_AVGHistDays:SetText(AUCTIONATOR_AVG_TIPS_DAYS);
+  
   ATR_tipsDisenchantOpt_CB:SetChecked(zc.NumToBool(AUCTIONATOR_D_TIPS));
   ATR_tipsActionBarsOpt_CB:SetChecked(zc.NumToBool(AUCTIONATOR_SHOW_ACTIONS_TIPS));
+  
 end
 
 
@@ -184,17 +189,21 @@ function Atr_TooltipsOptionsFrame_Save( frame )
     return
   end
 
-  local origValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
+  local origValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_AVG_TIPS, AUCTIONATOR_AVG_TIPS_DAYS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
 
   AUCTIONATOR_V_TIPS            = zc.BoolToNum(ATR_tipsVendorOpt_CB:GetChecked ());
   AUCTIONATOR_A_TIPS            = zc.BoolToNum(ATR_tipsAuctionOpt_CB:GetChecked ());
+  
+  AUCTIONATOR_AVG_TIPS          = zc.BoolToNum(ATR_tipsAuctionAVGOpt_CB:GetChecked ());
+  AUCTIONATOR_AVG_TIPS_DAYS     = Atr_ScanOpts_AVGHistDays:GetNumber();
+  
   AUCTIONATOR_D_TIPS            = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
   AUCTIONATOR_SHOW_ACTIONS_TIPS = zc.BoolToNum(ATR_tipsActionBarsOpt_CB:GetChecked());
 
   AUCTIONATOR_SHIFT_TIPS    = UIDropDownMenu_GetSelectedValue(Atr_tipsShiftDD);
   AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
 
-  local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
+  local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_AVG_TIPS, AUCTIONATOR_AVG_TIPS_DAYS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
 
   if (origValues ~= newValues) then
     zc.msg_anm (ZT("tooltip configuration saved"));

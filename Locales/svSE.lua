@@ -62,6 +62,8 @@ AUCTIONATOR_AUCTIONS_SCANNED = "Auctions scanned:"
 AUCTIONATOR_ITEMS_ADDED = "Items added:"
 AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
+AUCTIONATOR_AVG_DAYS_TEXT = "Show the average of the last:"
+AUCTIONATOR_SELL_AH_EXACT_MATCH = "Exact match"
 --- End Globals
 AtrL["AH"] = ""
 AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
@@ -382,6 +384,7 @@ AtrL["Uncommon items"] = ""
 AtrL["undercutting configuration saved"] = ""
 AtrL["You do not have enough gold\n\nto make any more purchases."] = ""
 AtrL["You may have at most 40 single-stack (x1)\nauctions posted for this item.\n\nYou already have %d such auctions and\nyou are trying to post %d more."] = ""
-
+AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Show average of auction house prices history in tooltips"] = ""
 
 end

@@ -50,6 +50,8 @@ AUCTIONATOR_AUCTIONS_SCANNED = "Auctions scanned:"
 AUCTIONATOR_ITEMS_ADDED = "Items added:"
 AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
+AUCTIONATOR_AVG_DAYS_TEXT = "Show the average of the last:"
+AUCTIONATOR_SELL_AH_EXACT_MATCH = "Exact match"
 --- End Globals
 AtrL["AH"] = ""
 AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
@@ -488,6 +490,7 @@ AtrL["Export"]="내보내기"
 
 AtrL["Really delete the shopping list %s ?"] = "정말 쇼핑목록에서 삭제하시겠습니까? %s"
 AtrL["Select multiple shopping lists by holding down the control key while clicking"]="여러개를 선택하려면 Ctrl키를 누른채로 목록을 클릭하세요."
-
+AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Show average of auction house prices history in tooltips"] = ""
 
 end

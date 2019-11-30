@@ -348,6 +348,14 @@ end
 
 -----------------------------------------
 
+function Atr_STWP_AddAverageInfo (tip, average, days)
+  if (AUCTIONATOR_AVG_TIPS == 1 and average > 0) then
+    tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days), "|cFFFFFFFF"..zc.priceToMoneyString (average))
+  end
+end
+
+-------------------------------------------
+
 function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel)
 
   local vendorPrice = 0;
@@ -370,6 +378,49 @@ function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemNa
 
   return vendorPrice, auctionPrice, dePrice;
 
+end
+
+-----------------------------------------
+
+function Atr_STWP_GetHistoryAverage (itemName)
+  
+  local daysSinceZero = Atr_GetScanDay_Today();
+  
+  local key, highlowprice, char1, day, when;
+  local num = 0;
+  local average = -1;
+  if(gAtr_ScanDB[itemName] == nil) then
+    return -1, 0;
+  end
+  for key, highlowprice in pairs (gAtr_ScanDB[itemName]) do
+  
+    char1 = string.sub (key, 1, 1);
+
+    if (char1 == "H") then
+
+      day = tonumber (string.sub(key, 2));
+      
+      if((daysSinceZero - day) < AUCTIONATOR_AVG_TIPS_DAYS) then
+
+        local lowlowprice = gAtr_ScanDB[itemName]["L"..day];
+        if (lowlowprice == nil) then
+          lowlowprice = highlowprice;
+        end
+
+        highlowprice = tonumber (highlowprice)
+        lowlowprice  = tonumber (lowlowprice)
+        average = average + zc.round ((highlowprice + lowlowprice) / 2);
+        num = num + 1;
+      end
+    end
+  end
+  
+  if (num > 0) then
+    average = zc.round(average/num);
+  end
+  
+  return average, num;
+  
 end
 
 -----------------------------------------
@@ -437,6 +488,9 @@ function Atr_ShowTipWithPricing (tip, link, num)
   if num and showStackPrices then
     xstring = "|cFFAAAAFF x" .. num .. "|r"
   end
+  
+  
+  local average, days = Atr_STWP_GetHistoryAverage(itemName);
 
   local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
 
@@ -447,6 +501,10 @@ function Atr_ShowTipWithPricing (tip, link, num)
   -- auction info
 
   Atr_STWP_AddAuctionInfo (tip, xstring, link, auctionPrice)
+  
+  -- averages info
+
+  Atr_STWP_AddAverageInfo (tip, average, days)
 
   -- disenchanting info
 
@@ -582,7 +640,7 @@ hooksecurefunc (GameTooltip, "SetAction",
 hooksecurefunc (GameTooltip, "SetTrainerService",
   function(tip, index)
     local link = select(2, tip:GetItem());
-    Atr_ShowTipWithPricing (tip, link, 1);
+    Atr_ShowTipWithPricing (tip, link);
   end
 );
 
@@ -590,7 +648,7 @@ hooksecurefunc (GameTooltip, "SetCraftSpell",
   function (tip)
     local link = select(2, tip:GetItem());
     if link then
-      Atr_ShowTipWithPricing (tip, link, 1);
+      Atr_ShowTipWithPricing (tip, link);
     end
   end
 );
@@ -638,7 +696,7 @@ hooksecurefunc (GameTooltip, "SetInboxItem",
 hooksecurefunc ( "InboxFrameItem_OnEnter",
   function ( self )
     local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
-    local tooltipEnabled = (AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1)
+    local tooltipEnabled = (AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1 or AUCTIONATOR_AVG_TIPS == 1)
 
     if tooltipEnabled and itemCount and itemCount > 1 then
       for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do
