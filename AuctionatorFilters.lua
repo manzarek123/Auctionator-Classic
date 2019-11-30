@@ -74,7 +74,8 @@ local function GenerateSubClasses( classID, parentName, parentKey )
   for index = 1, #subClassesTable do
     local subClassID = subClassesTable[ index ]
     local name = GetItemSubClassInfo( classID, subClassID )
-
+	if parentKey==nil then parentKey=""; end
+	
     local filter = { classID = classID, subClassID = subClassID }
     local subClass = Auctionator.Filter:new({
       classID = subClassID,
@@ -94,18 +95,20 @@ end
 -- TODO: Will probably want to special case Armor for inventoryTypeFilters
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
   local name = GetItemClassInfo( classID )
-  local key = name
-  local subClasses, filter = GenerateSubClasses( classID, name, key )
+  if name~=nil then
+	local key = name
+	local subClasses, filter = GenerateSubClasses( classID, name, key )
 
-  local categoryFilter = Auctionator.Filter:new({
-    classID = classID,
-    name = name,
-    key = key,
-    filter = filter,
-    subClasses = subClasses
-  })
+	local categoryFilter = Auctionator.Filter:new({
+		classID = classID,
+		name = name,
+		key = key,
+		filter = filter,
+		subClasses = subClasses
+	})
 
-  table.insert( Auctionator.Filters, categoryFilter )
+	table.insert( Auctionator.Filters, categoryFilter )
+  end
 end
 
 for index, filter in ipairs( Auctionator.Filters ) do
