@@ -482,46 +482,48 @@ end
 hooksecurefunc (GameTooltip, "SetMerchantItem",
   function(tip, index)
     local _, _, _, num = GetMerchantItemInfo(index);
-    Atr_ShowTipWithPricing (tip, GetMerchantItemLink(index), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetBuybackItem",
   function(tip, index)
     local _, _, _, num = GetBuybackItemInfo(index);
-    Atr_ShowTipWithPricing (tip, GetBuybackItemLink(index), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
-
-
 
 hooksecurefunc (GameTooltip, "SetBagItem",
   function(tip, bag, slot)
     local _, num = GetContainerItemInfo(bag, slot);
-    Atr_ShowTipWithPricing (tip, GetContainerItemLink(bag, slot), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetAuctionItem",
   function (tip, type, index)
     local _, _, num = GetAuctionItemInfo(type, index);
-    Atr_ShowTipWithPricing (tip, GetAuctionItemLink(type, index), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetAuctionSellItem",
   function (tip)
-    local name, _, count = GetAuctionSellItemInfo();
-    local __, link = GetItemInfo(name);
+    local name, _, num = GetAuctionSellItemInfo();
+    local link = select(2, tip:GetItem());
     Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
-
 hooksecurefunc (GameTooltip, "SetLootItem",
   function (tip, slot)
     if LootSlotHasItem(slot) then
-      local link, _, num = GetLootSlotLink(slot);
+      local _, _, num = GetLootSlotInfo(slot)
+      local link = select(2, tip:GetItem());
       Atr_ShowTipWithPricing (tip, link, num);
     end
   end
@@ -530,74 +532,96 @@ hooksecurefunc (GameTooltip, "SetLootItem",
 hooksecurefunc (GameTooltip, "SetLootRollItem",
   function (tip, slot)
     local _, _, num = GetLootRollItemInfo(slot);
-    Atr_ShowTipWithPricing (tip, GetLootRollItemLink(slot), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
-
 
 hooksecurefunc (GameTooltip, "SetInventoryItem",
   function (tip, unit, slot)
-    Atr_ShowTipWithPricing (tip, GetInventoryItemLink(unit, slot), GetInventoryItemCount(unit, slot));
+    local num = GetInventoryItemCount(unit, slot);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
---[[
-hooksecurefunc (GameTooltip, "SetGuildBankItem",
-  function (tip, tab, slot)
-    local _, num = GetGuildBankItemInfo(tab, slot);
-    Atr_ShowTipWithPricing (tip, GetGuildBankItemLink(tab, slot), num);
+hooksecurefunc (GameTooltip, "SetTradeSkillItem",
+  function (tip, index, reagent)
+    local link = select(2, tip:GetItem());
+    local num
+		if reagent then
+			num = select(3, GetTradeSkillReagentInfo(index, reagent))
+		else
+			num = GetTradeSkillNumMade(index)
+		end
+    Atr_ShowTipWithPricing (tip, link, num);
+    
   end
 );
 
-hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
-  function( tip, itemId )
-    local link = C_TradeSkillUI.GetRecipeItemLink( itemId )
-    local count  = C_TradeSkillUI.GetRecipeNumItemsProduced( itemId )
-
-    Atr_ShowTipWithPricing( tip, link, count )
+hooksecurefunc (GameTooltip, "SetCraftItem",
+  function (tip, index, reagent)
+    local _, _, num = GetCraftReagentInfo(index, reagent)
+		local link = GetCraftReagentItemLink(index, reagent)
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
-hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
-  function( tip, itemId, index )
-    local link = C_TradeSkillUI.GetRecipeReagentItemLink( itemId, index )
-    local count = select( 3, C_TradeSkillUI.GetRecipeReagentInfo( itemId, index ) )
-
-    Atr_ShowTipWithPricing( tip, link, count )
+hooksecurefunc (GameTooltip, "SetAction",
+  function (tip, slot)
+    if GetActionInfo(slot) == "item" then
+      local link = select(2, tip:GetItem());
+      local num = GetActionCount(slot);
+      Atr_ShowTipWithPricing (tip, link, num);
+    end
   end
 );
-]]--
+
+hooksecurefunc (GameTooltip, "SetTrainerService",
+  function(tip, index)
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, 1);
+  end
+);
+
+hooksecurefunc (GameTooltip, "SetCraftSpell",
+  function (tip)
+    local link = select(2, tip:GetItem());
+    if link then
+      Atr_ShowTipWithPricing (tip, link, 1);
+    end
+  end
+);
+
 hooksecurefunc (GameTooltip, "SetTradePlayerItem",
   function (tip, id)
     local _, _, num = GetTradePlayerItemInfo(id);
-    Atr_ShowTipWithPricing (tip, GetTradePlayerItemLink(id), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetTradeTargetItem",
   function (tip, id)
     local _, _, num = GetTradeTargetItemInfo(id);
-    Atr_ShowTipWithPricing (tip, GetTradeTargetItemLink(id), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetQuestItem",
   function (tip, type, index)
     local _, _, num = GetQuestItemInfo(type, index);
-    Atr_ShowTipWithPricing (tip, GetQuestItemLink(type, index), num);
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetQuestLogItem",
   function (tip, type, index)
-    local num, _;
-    if type == "choice" then
-      _, _, num = GetQuestLogChoiceInfo(index);
-    else
-      _, _, num = GetQuestLogRewardInfo(index)
-    end
-
-    Atr_ShowTipWithPricing (tip, GetQuestLogItemLink(type, index), num);
+    local _, _, num = GetQuestLogRewardInfo(index)
+    local link = select(2, tip:GetItem());
+    Atr_ShowTipWithPricing (tip, link, num);
   end
 );
 
@@ -641,8 +665,8 @@ hooksecurefunc ( "InboxFrameItem_OnEnter",
 
 hooksecurefunc (GameTooltip, "SetSendMailItem",
   function (tip, id)
-    local name, _, _, num = GetSendMailItem(id)
-    local name, link = GetItemInfo(name);
+    local _, _, _, num = GetSendMailItem(id)
+    local link = select(2, tip:GetItem());
     Atr_ShowTipWithPricing (tip, link, num);
   end
 );
