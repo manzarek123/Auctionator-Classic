@@ -348,9 +348,9 @@ end
 
 -----------------------------------------
 
-function Atr_STWP_AddAverageInfo (tip, average, days)
+function Atr_STWP_AddAverageInfo (tip, average, days, avgxstring)
   if (AUCTIONATOR_AVG_TIPS == 1 and average > 0) then
-    tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days), "|cFFFFFFFF"..zc.priceToMoneyString (average))
+    tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days)..avgxstring, "|cFFFFFFFF"..zc.priceToMoneyString (average))
   end
 end
 
@@ -485,8 +485,10 @@ function Atr_ShowTipWithPricing (tip, link, num)
   end
 
   local xstring = "";
+  local avgxstring = "";
   if num and showStackPrices then
     xstring = "|cFFAAAAFF x" .. num .. "|r"
+    avgxstring = "|cFFAAAAFF x1|r"
   end
   
   
@@ -504,7 +506,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   
   -- averages info
 
-  Atr_STWP_AddAverageInfo (tip, average, days)
+  Atr_STWP_AddAverageInfo (tip, average, days, avgxstring)
 
   -- disenchanting info
 
