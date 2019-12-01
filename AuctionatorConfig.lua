@@ -818,6 +818,16 @@ function Atr_scanLevelDD_showTip(self)
   GameTooltip:Show();
 end
 
+----------------------------------------
+
+function Atr_avgCB_showTip(self)
+
+  GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+  GameTooltip:SetText(ZT("Average Prices History"), 0.9, 1.0, 1.0);
+  GameTooltip:AddLine(ZT("Calculates average price based on the average of the lowest prices for each day where there was a scan"), 0.5, 0.5, 1.0, 1);
+  GameTooltip:Show();
+end
+
 -----------------------------------------
 
 local gAtr_ConfirmYesAction

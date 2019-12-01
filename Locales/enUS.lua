@@ -359,6 +359,9 @@ AtrL["your auction on"] = ""
 AtrL["your most recent posting"] = ""
 AtrL["yours"] = ""
 AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Auction avg"] = ""
 AtrL["Show average of auction house prices history in tooltips"] = ""
+AtrL["Average Prices History"] = ""
+AtrL["Calculates average price based on the average of the lowest prices for each day where there was a scan"] = ""
 --End Old Vars
 end

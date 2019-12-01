@@ -348,9 +348,25 @@ end
 
 -----------------------------------------
 
-function Atr_STWP_AddAverageInfo (tip, average, days, avgxstring)
-  if (AUCTIONATOR_AVG_TIPS == 1 and average > 0) then
-    tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days)..avgxstring, "|cFFFFFFFF"..zc.priceToMoneyString (average))
+function Atr_STWP_AddAverageInfo (tip, average, days, link, avgxstring)
+  if (AUCTIONATOR_AVG_TIPS == 1) then
+  
+    local itemID = zc.RawItemIDfromLink (link);
+    itemID = tonumber(itemID);
+
+    local bondtype = Atr_GetBondType (itemID);
+
+    if (bondtype == ATR_BIND_ON_PICKUP and AUCTIONATOR_A_TIPS == 0) then
+      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("BOP").."  ");
+    elseif (bondtype == ATR_BINDS_TO_ACCOUNT and AUCTIONATOR_A_TIPS == 0) then
+      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("BOA").."  ");
+    elseif (bondtype == ATR_QUEST_ITEM and AUCTIONATOR_A_TIPS == 0) then
+      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("Quest Item").."  ");
+    elseif (average > 0) then
+      tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days)..avgxstring, "|cFFFFFFFF"..zc.priceToMoneyString (average))
+    elseif (AUCTIONATOR_A_TIPS == 0) then
+      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("unknown").."  ");
+    end
   end
 end
 
@@ -506,7 +522,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   
   -- averages info
 
-  Atr_STWP_AddAverageInfo (tip, average, days, avgxstring)
+  Atr_STWP_AddAverageInfo (tip, average, days, link, avgxstring)
 
   -- disenchanting info
 

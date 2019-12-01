@@ -378,6 +378,9 @@ AtrL["your most recent posting"] = "su más reciente subasta"
 AtrL["yours"] = "su subasta"
 AtrL["Spanish translation courtesy of %s"] = "Traducción a español por cortesía de %s"
 AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Auction avg"] = ""
 AtrL["Show average of auction house prices history in tooltips"] = ""
+AtrL["Average Prices History"] = ""
+AtrL["Calculates average price based on the average of the lowest prices for each day where there was a scan"] = ""
 
 end

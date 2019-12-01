@@ -355,6 +355,9 @@ AtrL["your auction on"] = "votre enchère sur"
 --AtrL["your most recent posting"] = ""
 AtrL["yours"] = "les votres"
 AtrL["Auction avg (%s record(s))"] = "Enchères moy. (%s donnée(s))"
+AtrL["Auction avg"] = "Enchères moy."
 AtrL["Show average of auction house prices history in tooltips"] = ""
+AtrL["Average Prices History"] = ""
+AtrL["Calculates average price based on the average of the lowest prices for each day where there was a scan"] = ""
 
 end

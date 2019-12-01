@@ -364,6 +364,8 @@
         </Anchors>
         <Scripts>
           <OnLoad>ATR_tipsAuctionAVGOpt_CB_Text:SetText (gAtr_ZT("Show average of auction house prices history in tooltips"));  </OnLoad>
+          <OnEnter>Atr_avgCB_showTip(self);  </OnEnter>
+          <OnLeave>GameTooltip:Hide();   </OnLeave>
         </Scripts>
       </Frame>
       

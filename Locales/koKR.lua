@@ -491,6 +491,9 @@ AtrL["Export"]="내보내기"
 AtrL["Really delete the shopping list %s ?"] = "정말 쇼핑목록에서 삭제하시겠습니까? %s"
 AtrL["Select multiple shopping lists by holding down the control key while clicking"]="여러개를 선택하려면 Ctrl키를 누른채로 목록을 클릭하세요."
 AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Auction avg"] = ""
 AtrL["Show average of auction house prices history in tooltips"] = ""
+AtrL["Average Prices History"] = ""
+AtrL["Calculates average price based on the average of the lowest prices for each day where there was a scan"] = ""
 
 end

@@ -385,6 +385,9 @@ AtrL["undercutting configuration saved"] = ""
 AtrL["You do not have enough gold\n\nto make any more purchases."] = ""
 AtrL["You may have at most 40 single-stack (x1)\nauctions posted for this item.\n\nYou already have %d such auctions and\nyou are trying to post %d more."] = ""
 AtrL["Auction avg (%s record(s))"] = ""
+AtrL["Auction avg"] = ""
 AtrL["Show average of auction house prices history in tooltips"] = ""
+AtrL["Average Prices History"] = ""
+AtrL["Calculates average price based on the average of the lowest prices for each day where there was a scan"] = ""
 
 end
