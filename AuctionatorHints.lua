@@ -348,7 +348,7 @@ end
 
 -----------------------------------------
 
-function Atr_STWP_AddAverageInfo (tip, average, days, link, avgxstring)
+function Atr_STWP_AddAverageInfo (tip, average, records, link, xstring)
   if (AUCTIONATOR_AVG_TIPS == 1) then
   
     local itemID = zc.RawItemIDfromLink (link);
@@ -357,33 +357,36 @@ function Atr_STWP_AddAverageInfo (tip, average, days, link, avgxstring)
     local bondtype = Atr_GetBondType (itemID);
 
     if (bondtype == ATR_BIND_ON_PICKUP and AUCTIONATOR_A_TIPS == 0) then
-      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("BOP").."  ");
+      tip:AddDoubleLine (ZT("Auction avg")..xstring, "|cFFFFFFFF"..ZT("BOP").."  ");
     elseif (bondtype == ATR_BINDS_TO_ACCOUNT and AUCTIONATOR_A_TIPS == 0) then
-      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("BOA").."  ");
+      tip:AddDoubleLine (ZT("Auction avg")..xstring, "|cFFFFFFFF"..ZT("BOA").."  ");
     elseif (bondtype == ATR_QUEST_ITEM and AUCTIONATOR_A_TIPS == 0) then
-      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("Quest Item").."  ");
+      tip:AddDoubleLine (ZT("Auction avg")..xstring, "|cFFFFFFFF"..ZT("Quest Item").."  ");
     elseif (average > 0) then
-      tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), days)..avgxstring, "|cFFFFFFFF"..zc.priceToMoneyString (average))
+      tip:AddDoubleLine (string.format(ZT("Auction avg (%s record(s))"), records)..xstring, "|cFFFFFFFF"..zc.priceToMoneyString (average))
     elseif (AUCTIONATOR_A_TIPS == 0) then
-      tip:AddDoubleLine (ZT("Auction avg")..avgxstring, "|cFFFFFFFF"..ZT("unknown").."  ");
+      tip:AddDoubleLine (ZT("Auction avg")..xstring, "|cFFFFFFFF"..ZT("unknown").."  ");
     end
   end
 end
 
 -------------------------------------------
 
-function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel)
+function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel, itemAveragePrice)
 
   local vendorPrice = 0;
   local auctionPrice  = 0;
+  local averagePrice  = 0;
   local dePrice   = nil;
 
   if (AUCTIONATOR_V_TIPS == 1) then vendorPrice = itemVendorPrice; end;
+  if (AUCTIONATOR_AVG_TIPS == 1) then averagePrice = itemAveragePrice; end;
   if (AUCTIONATOR_A_TIPS == 1) then auctionPrice  = Atr_GetAuctionPrice (itemName); end;
   if (AUCTIONATOR_D_TIPS == 1) then dePrice   = Atr_CalcDisenchantPrice (classID, itemRarity, itemLevel); end;
 
   if (num and showStackPrices) then
     if (auctionPrice) then  auctionPrice = auctionPrice * num;  end;
+    if (averagePrice) then  averagePrice = averagePrice * num;  end;
     if (vendorPrice)  then  vendorPrice  = vendorPrice  * num;  end;
     if (dePrice)      then  dePrice    = dePrice  * num;  end;
   end;
@@ -392,7 +395,7 @@ function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemNa
     vendorPrice = 0;
   end
 
-  return vendorPrice, auctionPrice, dePrice;
+  return vendorPrice, auctionPrice, dePrice, averagePrice;
 
 end
 
@@ -404,9 +407,9 @@ function Atr_STWP_GetHistoryAverage (itemName)
   
   local key, highlowprice, char1, day, when;
   local num = 0;
-  local average = -1;
+  local average = 0;
   if(gAtr_ScanDB[itemName] == nil) then
-    return -1, 0;
+    return 0, 0;
   end
   for key, highlowprice in pairs (gAtr_ScanDB[itemName]) do
   
@@ -501,16 +504,14 @@ function Atr_ShowTipWithPricing (tip, link, num)
   end
 
   local xstring = "";
-  local avgxstring = "";
   if num and showStackPrices then
     xstring = "|cFFAAAAFF x" .. num .. "|r"
-    avgxstring = "|cFFAAAAFF x1|r"
   end
   
   
-  local average, days = Atr_STWP_GetHistoryAverage(itemName);
+  local itemAveragePrice, records = Atr_STWP_GetHistoryAverage(itemName);
 
-  local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
+  local vendorPrice, auctionPrice, dePrice, averagePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel, itemAveragePrice);
 
   -- vendor info
 
@@ -522,7 +523,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   
   -- averages info
 
-  Atr_STWP_AddAverageInfo (tip, average, days, link, avgxstring)
+  Atr_STWP_AddAverageInfo (tip, averagePrice, records, link, xstring)
 
   -- disenchanting info
 
