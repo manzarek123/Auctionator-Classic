@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: Auctionator Classic
 ## Version: 1.1
 ## Author: Borjamacare, Zirco, DaMaGepy(QuickFix), Manzarek(Classic)
